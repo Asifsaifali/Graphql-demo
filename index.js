@@ -3,7 +3,8 @@ const { expressMiddleware } = require('@apollo/server/express4')
 const { ApolloServer, gql } = require("@apollo/server")
 const axios = require('axios')
 // const UserRepository = require('./src/repository/UserRepository')
-
+const cors = require('cors')
+const { TODOS, USERS } = require('./src/data/index')
 const server = new ApolloServer({
     typeDefs: `
 
@@ -59,7 +60,7 @@ const server = new ApolloServer({
 const app = express();
 var bodyParser = require("body-parser")
 app.use(bodyParser.json())
-
+app.use(cors())
 async function StartServer() {
     await server.start()
     app.use('/graphql', expressMiddleware(server))
